@@ -1,5 +1,6 @@
 package com.example.fiilismittari;
 // joku kommentti vaan
+// parempi kommentti
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
