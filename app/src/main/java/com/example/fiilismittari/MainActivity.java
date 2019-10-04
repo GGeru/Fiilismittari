@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
     RadioGroup radiogroup;
-    Intent mainIntent; //mainIntent is the intent that will be executed when profile is set
+    Intent paivakirjaIntent; //mainIntent is the intent that will be executed when profile is set
     int radioId;
 
     @Override
@@ -22,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkRadioButton(View v) { //check which radiobutton is selected
-        radioId = radiogroup.getCheckedRadioButtonId();
+        radioId = radiogroup.getCheckedRadioButtonId(); //get the id of the checked button
 
     }
 
     public void chooseButtonPress(View v) { //onClick method for "valitse" -button
-        mainIntent = new Intent(this, Paivakirja.class);
-        mainIntent.putExtra("checkedRadioButton", radioId); //take the info of the checked button to the next activity
-        startActivity(mainIntent); //start the next activity
+        paivakirjaIntent = new Intent(this, Paivakirja.class);
+        paivakirjaIntent.putExtra("checkedRadioButton", radioId); //attach the checked radio button id to the intent
+        startActivity(paivakirjaIntent); //start the next activity
     }
 }
