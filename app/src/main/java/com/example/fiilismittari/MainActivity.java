@@ -1,5 +1,5 @@
 package com.example.fiilismittari;
-
+// joku kommentti vaan
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -29,6 +29,5 @@ public class MainActivity extends AppCompatActivity {
         mainIntent = new Intent(this, Paivakirja.class);
         mainIntent.putExtra("checkedRadioButton", radioId); //take the info of the checked button to the next activity
         startActivity(mainIntent); //start the next activity
-
     }
 }
