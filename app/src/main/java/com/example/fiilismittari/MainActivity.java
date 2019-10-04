@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String CHECKED_BUTTON = "com.example.fiilismittari.MESSAGE";
     RadioGroup radiogroup;
     Intent paivakirjaIntent; //mainIntent is the intent that will be executed when profile is set
     int radioId;
@@ -27,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseButtonPress(View v) { //onClick method for "valitse" -button
+        /* In here we will insert a code block that checks if a textview "name" or something
+        * in ProfileActivity is empty. If it is empty, open profile activity and if it is not, open
+        * Paivakirja(activity). */
         paivakirjaIntent = new Intent(this, Paivakirja.class);
-        paivakirjaIntent.putExtra("checkedRadioButton", radioId); //attach the checked radio button id to the intent
+        paivakirjaIntent.putExtra(CHECKED_BUTTON, radioId); //attach the checked radio button id to the intent
         startActivity(paivakirjaIntent); //start the next activity
     }
 }
