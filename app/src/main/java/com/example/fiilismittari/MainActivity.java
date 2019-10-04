@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 public class MainActivity extends AppCompatActivity {
     public static final String CHECKED_BUTTON = "com.example.fiilismittari.MESSAGE";
     RadioGroup radiogroup;
-    Intent paivakirjaIntent; //mainIntent is the intent that will be executed when profile is set
+    Intent paivakirjaIntent; //paivakirjaIntent is the intent that will be executed when profile is set
     int radioId;
 
     @Override
