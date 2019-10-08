@@ -1,4 +1,8 @@
 package com.example.fiilismittari;
+import java.text.SimpleDateFormat;
+import java.util.Calendar
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -121,4 +125,16 @@ public class Paivakirja extends AppCompatActivity {
 
         }  
     }
+
+    Date currentTime = Calendar.getInstance().getTime();
+
+    //String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
 }
+    Bundle b = getIntent().getExtras();
+    int i = b.getInt(MainActivity.EXTRA, 0);
+
+((TextView)findViewById(R.id.Date))
+        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
+        ((TextView)findViewById(R.id.vaihtoehto))
+        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
