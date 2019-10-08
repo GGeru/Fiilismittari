@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import java.util.Calendar;
 public class Paivakirja extends AppCompatActivity {
     RadioGroup radioGroup;
     int chosenRadioId;
+    Intent profileIntent;
     int savedMood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,11 @@ public class Paivakirja extends AppCompatActivity {
         saveMood();
 
 
+    }
+
+    public void onTestButtonClick(View v) {
+        profileIntent = new Intent(this, ProfileActivity_1.class);
+        startActivity(profileIntent);
     }
 
     private void saveMood() { //kesken!
