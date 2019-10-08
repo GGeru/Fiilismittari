@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Fiilismittari</string>
+    <string name="title_activity_paivamaara">paivamaara</string>
 </resources>
