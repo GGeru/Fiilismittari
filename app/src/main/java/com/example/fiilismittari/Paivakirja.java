@@ -37,6 +37,8 @@ public class Paivakirja extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paivakirja);
         radioGroup = findViewById(R.id.radioGroup);
+        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
+        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
@@ -46,11 +48,7 @@ public class Paivakirja extends AppCompatActivity {
 
         saveMood();
 
-        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
-        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-
-
-
+        getAverageMood();
     }
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
@@ -78,48 +76,49 @@ public class Paivakirja extends AppCompatActivity {
         }
 
     }
+
+    public void getAverageMood() {
+        int currentCount = 0;
+        for (int i = 0; i < dataPoints.size(); i++) {
+            currentCount += dataPoints.get(i).getMood();
+        }
+
+        double average = (double) currentCount / dataPoints.size();
+        testi.setText(Double.toString(average));
+        Log.d("Fiilismittari", "jee " + Integer.toString(dataPoints.size()));
+    }
+
     public void saveData() {
-        SharedPreferences prefPut = getSharedPreferences("MOODS", Activity.MODE_PRIVATE);
+        SharedPreferences prefPut = getSharedPreferences(MOODS, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = prefPut.edit();
         Gson gson = new Gson();
         String json = gson.toJson(dataPoints);
         prefEditor.putString(MOODS, json);
-        prefEditor.commit();
+        prefEditor.apply();
     }
 
     public void loadData() {
-        SharedPreferences prefPut = getSharedPreferences("MOODS", Activity.MODE_PRIVATE);
+        SharedPreferences prefPut = getSharedPreferences(MOODS, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = prefPut.getString("MOODS", null);
+        String json = prefPut.getString(MOODS, null);
         Type type = new TypeToken<ArrayList<DataPoint>>() {}.getType();
         dataPoints = gson.fromJson(json, type);
         if (dataPoints == null) {
             dataPoints = new ArrayList<>();
         }
-
+        Log.d("Fiilismittari", "jee loaddata toimi");
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        saveData();
-//        Log.d("Fiilismittari", "jee toimii onpause");
-//        //make shared preferences, as in make a place where we save stuff
-//        SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
-//        //i have no friking idea
-//        SharedPreferences.Editor prefEditor = prefPut.edit();
-////        GlobalModel.getInstance().setDataPoints(dataPoints);
-////        dataPoints = GlobalModel.getInstance().getDataPoints();
-//        //objectserializer is a class that separates things in the dataPoints arraylist
-//        Log.d("Fiilismittari", "jee toimii onpause2");
-//        try {
-//            Log.d("Fiilismittari", "jee try toimii");
-//            prefEditor.putString(MOODS, ObjectSerializer.serialize(GlobalModel.getInstance().getDataPoints()));
-//            Log.d("Fiilismittari", "jee try toimii toisen kerran");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        prefEditor.apply();
+        try {
+            saveData();
+            Log.d("Fiilismittari", "jee savedata toimi");
+        } catch (Exception exception) {
+            Log.d("Fiilismittari", "jee se ei toiminu :(");
+
+        }  
     }
 }
