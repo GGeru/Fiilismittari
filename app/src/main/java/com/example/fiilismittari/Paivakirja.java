@@ -1,6 +1,6 @@
 package com.example.fiilismittari;
 import java.text.SimpleDateFormat;
-import java.util.Calendar
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -127,15 +129,29 @@ public class Paivakirja extends AppCompatActivity {
 //        prefEditor.apply();
     }
 
-    Date currentTime = Calendar.getInstance().getTime();
+    ListView lv = findViewById(R.id.text_View_dataPoints);
 
-    //String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+    lv.setAdapter(new ArrayAdapter<dataPoints>(
+        this,
+    android.R.layout.simple_list_item_1, //XML item layout
+            // GlobalModel.getInstance().getdataPoints()) //array of data
 
-}
+    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+        Log.d(TAG, "onItemClick(" + i + ")");
+        Intent nextActivity = new Intent(Paivakirja.this, Paiva.class);
+        nextActivity.putExtra(EXTRA, i);
+        startActivity(nextActivity);
+    }
+
+
     Bundle b = getIntent().getExtras();
     int i = b.getInt(MainActivity.EXTRA, 0);
 
-((TextView)findViewById(R.id.Date))
-        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
-        ((TextView)findViewById(R.id.vaihtoehto))
-        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
+    ((TextView)findViewById(R.id.textViewdatapoints))
+            .setText(GlobalModel.getInstance().getDataPoints(i).getName());
+
+
+}
+
