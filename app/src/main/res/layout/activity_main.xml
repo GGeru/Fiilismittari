@@ -21,10 +21,11 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="157dp"
-        android:layout_height="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,36 +38,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/mood_faces"
+            android:button="@drawable/ic_sentiment_very_dissatisfied_black_48dp"
+            android:checked="true"
+            android:onClick="onRadioSelected" />
 
         <RadioButton
             android:id="@+id/notGoodMood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/mood_faces"
+            android:button="@drawable/ic_sentiment_dissatisfied_black_48dp"
+            android:onClick="onRadioSelected" />
 
         <RadioButton
             android:id="@+id/okMood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/mood_faces"
+            android:button="@drawable/ic_sentiment_neutral_black_48dp"
+            android:onClick="onRadioSelected" />
 
         <RadioButton
             android:id="@+id/niceMood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/mood_faces"
+            android:button="@drawable/ic_sentiment_satisfied_black_48dp"
+            android:onClick="onRadioSelected" />
 
         <RadioButton
             android:id="@+id/greatMood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/mood_faces"
+            android:button="@drawable/ic_sentiment_very_satisfied_black_48dp"
+            android:onClick="onRadioSelected" />
     </RadioGroup>
+
 
     <Button
         android:id="@+id/chooseButton"

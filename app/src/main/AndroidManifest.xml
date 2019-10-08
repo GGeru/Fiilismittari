@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+=======
+        <activity android:name=".ProfileActivity_1"></activity>
+>>>>>>> 02c34fe5f279c258d85461bceced67921b5b07a5
         <activity android:name=".Paivakirja" />
         <activity android:name=".Diagrammi" />
         <activity android:name=".MainActivity">
