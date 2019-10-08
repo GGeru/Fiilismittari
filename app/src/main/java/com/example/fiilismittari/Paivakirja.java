@@ -19,14 +19,14 @@ import java.util.Calendar;
 //this is an activity
 
 public class Paivakirja extends AppCompatActivity {
-
-    RadioGroup radioGroup;
     int chosenRadioId;
-    Intent profileIntent;
     int savedMood;
     String currentDate;
+    static final String MOODS = "moods";
+    static ArrayList<DataPoint> dataPoints;
+    RadioGroup radioGroup;
     TextView testi;
-    ArrayList<DataPoint> dataPoints;
+    Intent profileIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,23 @@ public class Paivakirja extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
         currentDate = DateFormat.getDateInstance().format(calendar.getTime());
 //        testi.setText(currentDate);
+        if (null == dataPoints) {
+            dataPoints = new ArrayList<DataPoint>();
+        }
+
+        SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
+
+        try {
+            dataPoints = (ArrayList<DataPoint>) ObjectSerializer.deserialize(prefPut.getString(MOODS, ObjectSerializer.serialize(new ArrayList<DataPoint>())));
+//            GlobalModel.getInstance().setDataPoints(dataPoints);
+            Log.d("Fiilismittari", "jee toimii");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         saveMood();
+
         getAverageMood();
     }
 
@@ -53,51 +69,61 @@ public class Paivakirja extends AppCompatActivity {
     public void saveMood() { //put the chosen mood in the globalmodel for saving
         switch (chosenRadioId) {
             case R.id.badMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(1, currentDate)); //GlobalModel is a  singleton, check lecture 6
+                GlobalModel.getInstance().getDataPoints().add(new DataPoint(1.0, currentDate)); //GlobalModel is a  singleton, check lecture 6
+//                dataPoints.add(new DataPoint(1, currentDate));
                 break;
             case R.id.notGoodMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(2, currentDate));
+                GlobalModel.getInstance().getDataPoints().add(new DataPoint(2.0, currentDate));
+//                dataPoints.add(new DataPoint(2, currentDate));
                 break;
             case R.id.okMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(3, currentDate));
+                GlobalModel.getInstance().getDataPoints().add(new DataPoint(3.0, currentDate));
+//                dataPoints.add(new DataPoint(3, currentDate));
                 break;
             case R.id.niceMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(4, currentDate));
+                GlobalModel.getInstance().getDataPoints().add(new DataPoint(4.0, currentDate));
+//                dataPoints.add(new DataPoint(4, currentDate));
                 break;
             case R.id.greatMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(5, currentDate));
+                GlobalModel.getInstance().getDataPoints().add(new DataPoint(5.0, currentDate));
+//                dataPoints.add(new DataPoint(5, currentDate));
                 break;
         }
     }
 
-    public void getAverageMood() { //count the average mood from the datapoints collected
-        dataPoints = GlobalModel.getInstance().getDataPoints(); //get the list of datapoints from GlobalModel
+    public void getAverageMood() { //count the average mood from the datapoints collected, this is just to test the mood counter
+//        dataPoints = GlobalModel.getInstance().getDataPoints(); //get the list of datapoints from GlobalModel
         double moodSum = 0;
         int i;
-        for (i = 0; i < dataPoints.size(); i++) {
-            double thisMood = (double) dataPoints.get(i).getMood();
+        for (i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {
+            double thisMood = (double) GlobalModel.getInstance().getDataPoints().get(i).getMood();
             moodSum += thisMood;
         }
 
-        double average = (double) moodSum / dataPoints.size();
+        double average = (double) moodSum / GlobalModel.getInstance().getDataPoints().size();
         testi.setText(Double.toString(average));
-
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("Fiilismittari", "jee toimii onpause");
         //make shared preferences, as in make a place where we save stuff
         SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
         //i have no friking idea
         SharedPreferences.Editor prefEditor = prefPut.edit();
+//        GlobalModel.getInstance().setDataPoints(dataPoints);
+//        dataPoints = GlobalModel.getInstance().getDataPoints();
         //objectserializer is a class that separates things in the dataPoints arraylist
+        Log.d("Fiilismittari", "jee toimii onpause2");
         try {
-            prefEditor.putString("moods", ObjectSerializer.serialize(dataPoints));
+            Log.d("Fiilismittari", "jee try toimii");
+            prefEditor.putString(MOODS, ObjectSerializer.serialize(GlobalModel.getInstance().getDataPoints()));
+            Log.d("Fiilismittari", "jee try toimii toisen kerran");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        prefEditor.apply();
     }
 }
