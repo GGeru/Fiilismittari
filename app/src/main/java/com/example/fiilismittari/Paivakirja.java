@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 //this is an activity
@@ -18,6 +19,7 @@ public class Paivakirja extends AppCompatActivity {
     int chosenRadioId;
     Intent profileIntent;
     int savedMood;
+    String currentDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +29,13 @@ public class Paivakirja extends AppCompatActivity {
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
         TextView testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
-        testi.setText(Integer.toString(chosenRadioId));
-        saveMood();
 
-
+        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
+        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        testi.setText(currentDate);
     }
 
-    public void onTestButtonClick(View v) {
+    public void onTestButtonClick(View v) { //this button takes you to profile activity
         profileIntent = new Intent(this, ProfileActivity_1.class);
         startActivity(profileIntent);
     }
@@ -41,19 +43,19 @@ public class Paivakirja extends AppCompatActivity {
     private void saveMood() { //kesken!
         switch (chosenRadioId) {
             case R.id.badMood:
-
+                GlobalModel.getInstance().getMoods().add(new DataPoint(1, currentDate)); //GlobalModel is a  singleton, check lecture 6 
                 break;
             case R.id.notGoodMood:
-
+                GlobalModel.getInstance().getMoods().add(new DataPoint(2, currentDate));
                 break;
             case R.id.okMood:
-
+                GlobalModel.getInstance().getMoods().add(new DataPoint(3, currentDate));
                 break;
             case R.id.niceMood:
-
+                GlobalModel.getInstance().getMoods().add(new DataPoint(4, currentDate));
                 break;
             case R.id.greatMood:
-
+                GlobalModel.getInstance().getMoods().add(new DataPoint(5, currentDate));
                 break;
         }
     }
