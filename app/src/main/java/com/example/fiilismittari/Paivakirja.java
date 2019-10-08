@@ -11,7 +11,11 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,27 +42,15 @@ public class Paivakirja extends AppCompatActivity {
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
         testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
 
-        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
-        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-//        testi.setText(currentDate);
-        if (null == dataPoints) {
-            dataPoints = new ArrayList<DataPoint>();
-        }
+        loadData();
 
-        SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
-
-        try {
-            dataPoints = (ArrayList<DataPoint>) ObjectSerializer.deserialize(prefPut.getString(MOODS, ObjectSerializer.serialize(new ArrayList<DataPoint>())));
-//            GlobalModel.getInstance().setDataPoints(dataPoints);
-            Log.d("Fiilismittari", "jee toimii");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         saveMood();
 
-        getAverageMood();
+        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
+        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+
+
+
     }
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
@@ -69,61 +61,65 @@ public class Paivakirja extends AppCompatActivity {
     public void saveMood() { //put the chosen mood in the globalmodel for saving
         switch (chosenRadioId) {
             case R.id.badMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(1.0, currentDate)); //GlobalModel is a  singleton, check lecture 6
-//                dataPoints.add(new DataPoint(1, currentDate));
+                dataPoints.add(new DataPoint(1, currentDate));
                 break;
             case R.id.notGoodMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(2.0, currentDate));
-//                dataPoints.add(new DataPoint(2, currentDate));
+                dataPoints.add(new DataPoint(2, currentDate));
                 break;
             case R.id.okMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(3.0, currentDate));
-//                dataPoints.add(new DataPoint(3, currentDate));
+                dataPoints.add(new DataPoint(3, currentDate));
                 break;
             case R.id.niceMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(4.0, currentDate));
-//                dataPoints.add(new DataPoint(4, currentDate));
+                dataPoints.add(new DataPoint(4, currentDate));
                 break;
             case R.id.greatMood:
-                GlobalModel.getInstance().getDataPoints().add(new DataPoint(5.0, currentDate));
-//                dataPoints.add(new DataPoint(5, currentDate));
+                dataPoints.add(new DataPoint(5, currentDate));
                 break;
         }
+
+    }
+    public void saveData() {
+        SharedPreferences prefPut = getSharedPreferences("MOODS", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = prefPut.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(dataPoints);
+        prefEditor.putString(MOODS, json);
+        prefEditor.commit();
     }
 
-    public void getAverageMood() { //count the average mood from the datapoints collected, this is just to test the mood counter
-//        dataPoints = GlobalModel.getInstance().getDataPoints(); //get the list of datapoints from GlobalModel
-        double moodSum = 0;
-        int i;
-        for (i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {
-            double thisMood = (double) GlobalModel.getInstance().getDataPoints().get(i).getMood();
-            moodSum += thisMood;
+    public void loadData() {
+        SharedPreferences prefPut = getSharedPreferences("MOODS", Activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = prefPut.getString("MOODS", null);
+        Type type = new TypeToken<ArrayList<DataPoint>>() {}.getType();
+        dataPoints = gson.fromJson(json, type);
+        if (dataPoints == null) {
+            dataPoints = new ArrayList<>();
         }
 
-        double average = (double) moodSum / GlobalModel.getInstance().getDataPoints().size();
-        testi.setText(Double.toString(average));
-
     }
+
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("Fiilismittari", "jee toimii onpause");
-        //make shared preferences, as in make a place where we save stuff
-        SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
-        //i have no friking idea
-        SharedPreferences.Editor prefEditor = prefPut.edit();
-//        GlobalModel.getInstance().setDataPoints(dataPoints);
-//        dataPoints = GlobalModel.getInstance().getDataPoints();
-        //objectserializer is a class that separates things in the dataPoints arraylist
-        Log.d("Fiilismittari", "jee toimii onpause2");
-        try {
-            Log.d("Fiilismittari", "jee try toimii");
-            prefEditor.putString(MOODS, ObjectSerializer.serialize(GlobalModel.getInstance().getDataPoints()));
-            Log.d("Fiilismittari", "jee try toimii toisen kerran");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        prefEditor.apply();
+        saveData();
+//        Log.d("Fiilismittari", "jee toimii onpause");
+//        //make shared preferences, as in make a place where we save stuff
+//        SharedPreferences prefPut = getSharedPreferences( "MyTestPref", Activity.MODE_PRIVATE);
+//        //i have no friking idea
+//        SharedPreferences.Editor prefEditor = prefPut.edit();
+////        GlobalModel.getInstance().setDataPoints(dataPoints);
+////        dataPoints = GlobalModel.getInstance().getDataPoints();
+//        //objectserializer is a class that separates things in the dataPoints arraylist
+//        Log.d("Fiilismittari", "jee toimii onpause2");
+//        try {
+//            Log.d("Fiilismittari", "jee try toimii");
+//            prefEditor.putString(MOODS, ObjectSerializer.serialize(GlobalModel.getInstance().getDataPoints()));
+//            Log.d("Fiilismittari", "jee try toimii toisen kerran");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        prefEditor.apply();
     }
 }
