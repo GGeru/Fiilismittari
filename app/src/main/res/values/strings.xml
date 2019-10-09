@@ -5,4 +5,6 @@
     <string name="user">Käyttäjä:</string>
     <string name="okButton">ok</string>
     <string name="remember_me" translatable="false">Muista minut</string>
+    <string name="p_iv">päivä</string>
+    <string name="n_e_mieliala">Näe mieliala</string>
 </resources>
