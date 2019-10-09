@@ -1,8 +1,6 @@
 package com.example.fiilismittari;
-import java.text.SimpleDateFormat;
 import java.util.Calendar
 import java.util.Date;
-import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,11 +16,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 //this is an activity
 
@@ -46,7 +42,7 @@ public class Paivakirja extends AppCompatActivity {
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
-        testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
+        testi = findViewById(R.id.yourName); // just some test code to see if the radiobutton id comes through
 
         loadData();
 

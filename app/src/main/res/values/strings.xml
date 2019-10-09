@@ -3,4 +3,5 @@
     <string name="k_ytt_j_profiili" translatable="false">Käyttäjäprofiili</string>
     <string name="put_your_name_here">name</string>
     <string name="user">Käyttäjä:</string>
+    <string name="ok">ok</string>
 </resources>
