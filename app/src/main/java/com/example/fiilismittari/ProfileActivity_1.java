@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
+
 
 public class ProfileActivity_1 extends AppCompatActivity {
     private CheckBox checkBox;
-    private Button aButton;
     private SharedPreferences aPreference;
     private SharedPreferences.Editor aEditor;
     private EditText aName;
@@ -23,9 +22,9 @@ public class ProfileActivity_1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_1);
-        checkBox = (CheckBox)findViewById(R.id.rememberMe);
-        aButton = (Button)findViewById(R.id.okButton);
-        aName = (EditText)findViewById(R.id.name);
+        checkBox = findViewById(R.id.rememberMe);
+        Button aButton = findViewById(R.id.okButton);
+        aName = findViewById(R.id.name);
         aPreference = PreferenceManager.getDefaultSharedPreferences(this);
         aEditor = aPreference.edit();
 
@@ -68,16 +67,16 @@ public class ProfileActivity_1 extends AppCompatActivity {
         }
 
     }
-    public void putName(View v) {
-        TextView tv = findViewById(R.id.yourName);
-        EditText editText = (EditText) findViewById(R.id.user);
-        String name = editText.getText().toString();
-        tv.setText(name);
+    //public void putName(View v) {
+        //TextView tv = findViewById(R.id.yourName);
+        //EditText editText = (EditText) findViewById(R.id.user);
+        //String name = editText.getText().toString();
+        //tv.setText(name);
 
         //you write your name on user-text box and its put on yourName box
         //yourName box doesn't have anything on it before name is put
 
         //Dias, android developers and https://www.youtube.com/watch?v=3Zrwi3FFrC8&t=114s
         //were helping me on this activity
-    }
+    //}
 }
