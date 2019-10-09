@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class Paivakirja extends AppCompatActivity {
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
-        testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
+         testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
 
         loadData();
 
@@ -127,29 +128,30 @@ public class Paivakirja extends AppCompatActivity {
 
         }  
     }
+    Bundle b = getIntent().getExtras();
+    int i = b.getInt(MainActivity.EXTRA , 0);
 
-    ListView lv = findViewById(R.id.text_View_dataPoints);
+    ((TextView)findViewById(R.id.textViewdatapoints))
+            .setText(GlobalModel.getInstance().getDataPoints(i).getName());
 
-    lv.setAdapter(new ArrayAdapter<dataPoints>(
+    ListView i = findViewById(R.id.text_View_dataPoints);
+
+    lv.setAdapter(new ArrayAdapter<DataPoint>(
         this,
     android.R.layout.simple_list_item_1, //XML item layout
             // GlobalModel.getInstance().getdataPoints()) //array of data
 
     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+    public void onItemClick(AdapterView<> adapterView, View view, int i, long l){
         Log.d(TAG, "onItemClick(" + i + ")");
-        Intent nextActivity = new Intent(Paivakirja.this, Paiva.class);
+        Intent nextActivity = new Intent(Paivakirja.this, DataPoint.class);
         nextActivity.putExtra(EXTRA, i);
         startActivity(nextActivity);
     }
 
 
-    Bundle b = getIntent().getExtras();
-    int i = b.getInt(MainActivity.EXTRA, 0);
 
-    ((TextView)findViewById(R.id.textViewdatapoints))
-            .setText(GlobalModel.getInstance().getDataPoints(i).getName());
 
 
 }
