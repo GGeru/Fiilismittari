@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 
+/**
+ * This is where you choose your current mood from 5 different pictures
+ */
 public class MainActivity extends AppCompatActivity {
     public static final String CHECKED_BUTTON = "com.example.fiilismittari.INT";
     RadioGroup radiogroup;
@@ -23,18 +26,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This is the onClick method for the mood radioGroup
+     * @param v
+     */
     public void onRadioSelected(View v) {
         RadioGroup radioGroup = findViewById(R.id.radioGroup); //find us the radiogroup
         radioId = radiogroup.getCheckedRadioButtonId();
     }
 
-    public void chooseButtonPress(View v) { //onClick method for "valitse" -button
-        /* In here we will insert a code block that checks if a textview "name" or something
-        * in ProfileActivity is empty. If it is empty, open profile activity and if it is not, open
-        * Paivakirja(activity). */
+    /**
+     * This is the onClick method for the "valitse" button seen on the main screen.
+     * This onClick method will also attach the chosen radiobutton id to a new intent
+     * and start the Paivakirja activity.
+     * @param v
+     */
+    public void chooseButtonPress(View v) {
+        Log.d("Fiilismittari", "jee p''stiin intenttiin");
         Log.d("Fillismittari", "button pressed");
         paivakirjaIntent = new Intent(this, Paivakirja.class);
         paivakirjaIntent.putExtra(CHECKED_BUTTON, radioId); //attach the checked radio button id to the intent
+        Log.d("Fiilismittari", "jee p''stiin intenttiin");
         startActivity(paivakirjaIntent); //start the next activity
 
     }
