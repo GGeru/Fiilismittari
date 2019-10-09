@@ -1,6 +1,8 @@
 package com.example.fiilismittari;
-import java.util.Calendar
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,15 +12,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 //this is an activity
 
@@ -42,7 +48,7 @@ public class Paivakirja extends AppCompatActivity {
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
-        testi = findViewById(R.id.yourName); // just some test code to see if the radiobutton id comes through
+        testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
 
         loadData();
 
@@ -122,15 +128,29 @@ public class Paivakirja extends AppCompatActivity {
         }  
     }
 
-    Date currentTime = Calendar.getInstance().getTime();
+    ListView lv = findViewById(R.id.text_View_dataPoints);
 
-    //String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+    lv.setAdapter(new ArrayAdapter<dataPoints>(
+        this,
+    android.R.layout.simple_list_item_1, //XML item layout
+            // GlobalModel.getInstance().getdataPoints()) //array of data
 
-}
+    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+        Log.d(TAG, "onItemClick(" + i + ")");
+        Intent nextActivity = new Intent(Paivakirja.this, Paiva.class);
+        nextActivity.putExtra(EXTRA, i);
+        startActivity(nextActivity);
+    }
+
+
     Bundle b = getIntent().getExtras();
     int i = b.getInt(MainActivity.EXTRA, 0);
 
-((TextView)findViewById(R.id.Date))
-        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
-        ((TextView)findViewById(R.id.vaihtoehto))
-        .setText(GlobalModel.getInstance().getDate(i).getVaihtoehto());
+    ((TextView)findViewById(R.id.textViewdatapoints))
+            .setText(GlobalModel.getInstance().getDataPoints(i).getName());
+
+
+}
+
