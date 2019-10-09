@@ -36,7 +36,7 @@ public class Paivakirja extends AppCompatActivity {
     static final String MOODS = "moods";
     static ArrayList<DataPoint> dataPoints;
     RadioGroup radioGroup;
-    TextView testi;
+    TextView test;
     Intent profileIntent;
 
     @Override
@@ -49,14 +49,45 @@ public class Paivakirja extends AppCompatActivity {
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
-         testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
+         test = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
 
         loadData();
 
         saveMood();
 
         getAverageMood();
-    }
+
+
+
+        Bundle b = getIntent().getExtras();
+        int i = b.getInt(MainActivity.EXTRA , 0);
+
+        ((TextView)findViewById(R.id.textViewdatapoints))
+                .setText(GlobalModel.getInstance().getDataPoints(i).getName());
+
+        ListView lv = findViewById(R.id.text_View_dataPoints);
+
+        lv.setAdapter(new ArrayAdapter<DataPoint>(
+                this,
+                android.R.layout.simple_list_item_1, //XML item layout
+                // GlobalModel.getInstance().getdataPoints()) //array of data
+
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.d(TAG, "onItemClick(" + i + ")");
+                        Intent nextActivity = new Intent(Paivakirja.this, DataPoint.class);
+                        nextActivity.putExtra(EXTRA, i);
+                        startActivity(nextActivity);
+                    }
+
+
+                })
+    ));
+
+
+}
+
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
         profileIntent = new Intent(this, ProfileActivity_1.class);
@@ -91,7 +122,7 @@ public class Paivakirja extends AppCompatActivity {
         }
 
         double average = (double) currentCount / dataPoints.size();
-        testi.setText(Double.toString(average));
+        test.setText(Double.toString(average));
         Log.d("Fiilismittari", "jee " + Integer.toString(dataPoints.size()));
     }
 
@@ -115,8 +146,6 @@ public class Paivakirja extends AppCompatActivity {
         }
         Log.d("Fiilismittari", "jee loaddata toimi");
     }
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -126,31 +155,8 @@ public class Paivakirja extends AppCompatActivity {
         } catch (Exception exception) {
             Log.d("Fiilismittari", "jee se ei toiminu :(");
 
-        }  
+        }
     }
-    Bundle b = getIntent().getExtras();
-    int i = b.getInt(MainActivity.EXTRA , 0);
-
-    ((TextView)findViewById(R.id.textViewdatapoints))
-            .setText(GlobalModel.getInstance().getDataPoints(i).getName());
-
-    ListView i = findViewById(R.id.text_View_dataPoints);
-
-    lv.setAdapter(new ArrayAdapter<DataPoint>(
-        this,
-    android.R.layout.simple_list_item_1, //XML item layout
-            // GlobalModel.getInstance().getdataPoints()) //array of data
-
-    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-    public void onItemClick(AdapterView<> adapterView, View view, int i, long l){
-        Log.d(TAG, "onItemClick(" + i + ")");
-        Intent nextActivity = new Intent(Paivakirja.this, DataPoint.class);
-        nextActivity.putExtra(EXTRA, i);
-        startActivity(nextActivity);
-    }
-
-
 
 
 
