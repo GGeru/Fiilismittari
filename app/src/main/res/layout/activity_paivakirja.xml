@@ -7,14 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".Paivakirja">
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="379dp"
+        android:layout_height="347dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="128dp"
-        android:text="Näe mieliala"
+        android:text="@string/n_e_mieliala"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="165dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/datapointsView"
