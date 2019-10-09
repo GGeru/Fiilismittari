@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,7 +29,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 //this is an activity
 
@@ -65,10 +66,25 @@ public class Paivakirja extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 GlobalModel.getInstance().getDataPoints())
         );
+        CalendarView mCalendarView;
+        mCalendarView = findViewById(R.id.calendarView);
 
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String date1 = dayOfMonth + "/ "+ (month+1) +"/ "+ year;
 
-
+                Intent intent = new Intent(Paivakirja.this, date_layout.class) ;
+                intent.putExtra("Date", date1);
+                startActivity(intent);
+            }
+        });
     }
+
+
+
+
+}
 
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
