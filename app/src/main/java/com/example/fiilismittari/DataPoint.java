@@ -12,4 +12,20 @@ public class DataPoint {
     public double getMood() {
         return mood;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public  String toString() {
+        String toReturn = "Mieliala: " + mood + " Päivämäärä: " + date;
+        return toReturn;
+    }
 }
+
+/*
+
+
+ */
+
+

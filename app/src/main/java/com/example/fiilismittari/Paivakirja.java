@@ -2,6 +2,7 @@ package com.example.fiilismittari;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class Paivakirja extends AppCompatActivity {
     int savedMood;
     String currentDate;
     static final String MOODS = "moods";
-//    ArrayList<DataPoint> dataPoints;
+    static final String DATE = "moods";
     RadioGroup radioGroup;
     TextView test;
     Intent profileIntent;
@@ -50,7 +51,7 @@ public class Paivakirja extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         ListView dataView = findViewById(R.id.datapointsView);
         Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
-        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        currentDate = calendar.get(calendar.DAY_OF_MONTH) + "/" + calendar.get(calendar.MONTH) + "/" + calendar.get(calendar.YEAR);
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
@@ -59,13 +60,14 @@ public class Paivakirja extends AppCompatActivity {
 
         saveMood();
 
-//        getAverageMood();
+        getAverageMood();
 
         dataView.setAdapter(new ArrayAdapter<DataPoint>(
                 this,
                 android.R.layout.simple_list_item_1,
                 GlobalModel.getInstance().getDataPoints())
         );
+
         CalendarView mCalendarView;
         mCalendarView = findViewById(R.id.calendarView);
 
@@ -73,19 +75,13 @@ public class Paivakirja extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date1 = dayOfMonth + "/ "+ (month+1) +"/ "+ year;
-
                 Intent intent = new Intent(Paivakirja.this, date_layout.class) ;
-                intent.putExtra("Date", date1);
+                intent.putExtra(DATE, date1);
+                Log.d("Fiilismittari", "jee menn''n intenttiin");
                 startActivity(intent);
             }
         });
     }
-
-
-
-
-}
-
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
         profileIntent = new Intent(this, ProfileActivity_1.class);
@@ -99,19 +95,19 @@ public class Paivakirja extends AppCompatActivity {
     public void saveMood() { //put the chosen mood in the globalmodel for saving
         switch (chosenRadioId) {
             case R.id.badMood:
-                GlobalModel.getInstance().addDataPoint(new DataPoint(1, currentDate));
+                GlobalModel.getInstance().addDataPoint(new DataPoint(1, GlobalModel.getInstance().getCurrentDate()));
                 break;
             case R.id.notGoodMood:
-                GlobalModel.getInstance().addDataPoint(new DataPoint(2, currentDate));
+                GlobalModel.getInstance().addDataPoint(new DataPoint(2, GlobalModel.getInstance().getCurrentDate()));
                 break;
             case R.id.okMood:
-                GlobalModel.getInstance().addDataPoint(new DataPoint(3, currentDate));
+                GlobalModel.getInstance().addDataPoint(new DataPoint(3, GlobalModel.getInstance().getCurrentDate()));
                 break;
             case R.id.niceMood:
-                GlobalModel.getInstance().addDataPoint(new DataPoint(4, currentDate));
+                GlobalModel.getInstance().addDataPoint(new DataPoint(4, GlobalModel.getInstance().getCurrentDate()));
                 break;
             case R.id.greatMood:
-                GlobalModel.getInstance().addDataPoint(new DataPoint(5, currentDate));
+                GlobalModel.getInstance().addDataPoint(new DataPoint(5, GlobalModel.getInstance().getCurrentDate()));
                 break;
         }
         saveData();
@@ -120,16 +116,18 @@ public class Paivakirja extends AppCompatActivity {
     /**
      * Counts the average mood from the datapoints saved in the ArrayList dataPoints.
      */
-//    public void getAverageMood() {
-//        int currentCount = 0;
-//        for (int i = 0; i < dataPoints.size(); i++) {
-//            currentCount += dataPoints.get(i).getMood();
-//        }
-//
-//        double average = (double) currentCount / dataPoints.size();
-//        test.setText(Double.toString(average));
-//        Log.d("Fiilismittari", "jee " + Integer.toString(dataPoints.size()));
-//    }
+    public void getAverageMood() {
+        ArrayList<DataPoint> dataPoints = GlobalModel.getInstance().getDataPoints();
+        int currentCount = 0;
+        for (int i = 0; i < dataPoints.size(); i++) {
+            currentCount += GlobalModel.getInstance().getDataPoints().get(i).getMood();
+        }
+
+        double average = (double) currentCount / GlobalModel.getInstance().getDataPoints().size();
+        test = findViewById(R.id.test);
+        test.setText(Double.toString(average));
+        Log.d("Fiilismittari", "jee " + Integer.toString(dataPoints.size()));
+    }
 
     /**
      * Converts the dataPoints list into a Json string, and then saves the list into
@@ -139,7 +137,8 @@ public class Paivakirja extends AppCompatActivity {
         SharedPreferences prefPut = getSharedPreferences(MOODS, Activity.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = prefPut.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(GlobalModel.getInstance().getDataPoints());
+        ArrayList<DataPoint> dataPoints = GlobalModel.getInstance().getDataPoints();
+        String json = gson.toJson(dataPoints);
         prefEditor.putString(MOODS, json);
         prefEditor.apply();
     }
