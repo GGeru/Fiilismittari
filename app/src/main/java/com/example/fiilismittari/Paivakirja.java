@@ -48,7 +48,7 @@ public class Paivakirja extends AppCompatActivity {
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
-        testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
+     //   testi = findViewById(R.id.textView2); // just some test code to see if the radiobutton id comes through
 
         loadData();
 
@@ -100,7 +100,7 @@ public class Paivakirja extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(dataPoints);
         prefEditor.putString(MOODS, json);
-        prefEditor.apply();
+        prefEditor.commit();
     }
 
     public void loadData() {
@@ -125,7 +125,7 @@ public class Paivakirja extends AppCompatActivity {
         } catch (Exception exception) {
             Log.d("Fiilismittari", "jee se ei toiminu :(");
 
-        }  
+        }
     }
 
     ListView lv = findViewById(R.id.text_View_dataPoints);
@@ -137,12 +137,15 @@ public class Paivakirja extends AppCompatActivity {
 
     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+    }
+
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
         Log.d(TAG, "onItemClick(" + i + ")");
         Intent nextActivity = new Intent(Paivakirja.this, Paiva.class);
         nextActivity.putExtra(EXTRA, i);
         startActivity(nextActivity);
     }
+
 
 
     Bundle b = getIntent().getExtras();
@@ -153,4 +156,5 @@ public class Paivakirja extends AppCompatActivity {
 
 
 }
+
 

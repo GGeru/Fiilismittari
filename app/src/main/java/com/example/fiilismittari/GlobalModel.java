@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-class GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will use this to save the mood data
+class GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will use this to save the mood data (or not because it was hard :( )
     private static final GlobalModel ourInstance = new GlobalModel();
     private ArrayList<DataPoint> moods;
     private String currentDate;
@@ -18,9 +18,10 @@ class GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will u
         Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
         currentDate = DateFormat.getDateInstance().format(calendar.getTime());
         moods = new ArrayList<>();
-        moods.add(new DataPoint(2, currentDate)); //test datapoints
-        moods.add(new DataPoint(2, currentDate));
-        moods.add(new DataPoint(4, currentDate));
+    }
+
+    public void setDataPoints(ArrayList<DataPoint> dataa) {
+        moods = dataa;
     }
 
     public ArrayList<DataPoint> getDataPoints() {

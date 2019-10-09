@@ -17,7 +17,7 @@ public class Paiva {
 }
 
 
-// olio lista päivä, ja sen tiedot
-//
-//paivat.add(new paiva(Date, vaihtoehto));
-//ArrayList<Paiva> paivat = new ArrayList<>();
+ olio lista päivä, ja sen tiedot
+
+paivat.add(new paiva(Date, vaihtoehto));
+ArrayList<Paiva> paivat = new ArrayList<>();

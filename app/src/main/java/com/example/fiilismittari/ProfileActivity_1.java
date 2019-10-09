@@ -11,6 +11,7 @@ public class ProfileActivity_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_1);
     }
+
     public void putName() {
         
     }

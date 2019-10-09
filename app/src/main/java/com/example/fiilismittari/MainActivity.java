@@ -25,27 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRadioSelected(View v) {
         RadioGroup radioGroup = findViewById(R.id.radioGroup); //find us the radiogroup
-        switch (radiogroup.getCheckedRadioButtonId()) {
-            case R.id.badMood:
-                checkRadioButton();
-                break;
-            case R.id.notGoodMood:
-                checkRadioButton();
-                break;
-            case R.id.okMood:
-                checkRadioButton();
-                break;
-            case R.id.niceMood:
-                checkRadioButton();
-                break;
-            case R.id.greatMood:
-                checkRadioButton();
-                break;
-        }
-    }
-
-    public void checkRadioButton() { //check which radiobutton is selected
-        radioId = radiogroup.getCheckedRadioButtonId(); //get the id of the checked button
+        radioId = radiogroup.getCheckedRadioButtonId();
     }
 
     public void chooseButtonPress(View v) { //onClick method for "valitse" -button
