@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-class GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will use this to save the mood data (or not because it was hard :( )
+/**
+ * 
+ */
+class  GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will use this to save the mood data (or not because it was hard :( )
     private static final GlobalModel ourInstance = new GlobalModel();
     private ArrayList<DataPoint> moods;
     private String currentDate;
