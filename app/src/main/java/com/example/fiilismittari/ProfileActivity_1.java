@@ -76,5 +76,8 @@ public class ProfileActivity_1 extends AppCompatActivity {
 
         //you write your name on user-text box and its put on yourName box
         //yourName box doesn't have anything on it before name is put
+
+        //Dias, android developers and https://www.youtube.com/watch?v=3Zrwi3FFrC8&t=114s
+        //were helping me on this activity
     }
 }
