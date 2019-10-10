@@ -33,6 +33,8 @@ import java.util.ArrayList;
 
 //this is an activity
 
+
+
 public class Paivakirja extends AppCompatActivity {
     int chosenRadioId;
     int savedMood;
@@ -157,6 +159,8 @@ public class Paivakirja extends AppCompatActivity {
 
         Log.d("Fiilismittari", "jee loaddata toimi");
     }
+
+    //https://www.youtube.com/watch?v=hHjFIG0TtA0 were reference to calendar
 
 
 }
