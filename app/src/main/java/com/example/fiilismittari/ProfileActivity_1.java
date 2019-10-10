@@ -7,10 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
+//creator Onika Åberg
 
 public class ProfileActivity_1 extends AppCompatActivity {
     private CheckBox checkBox;
@@ -23,13 +22,15 @@ public class ProfileActivity_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_1);
         checkBox = findViewById(R.id.rememberMe);
-//        Button aButton = findViewById(R.id.okButton);
         aName = findViewById(R.id.user);
         aPreference = PreferenceManager.getDefaultSharedPreferences(this);
         aEditor = aPreference.edit();
 
         checkSharedPreferences();
-
+/**
+ * new OnClickListener is created. when the value of checkBox is true, in other words,
+ * checkBox is checked it saves the name
+ */
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +55,10 @@ public class ProfileActivity_1 extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * this method saves the name even when the app is closed and opened again
+     */
     private void checkSharedPreferences(){
         String checkbox = aPreference.getString(getString(R.string.remember_me), "false");
         String name = aPreference.getString(getString(R.string.user), " ");
@@ -67,16 +72,4 @@ public class ProfileActivity_1 extends AppCompatActivity {
         }
 
     }
-    //public void putName(View v) {
-        //TextView tv = findViewById(R.id.yourName);
-        //EditText editText = (EditText) findViewById(R.id.user);
-        //String name = editText.getText().toString();
-        //tv.setText(name);
-
-        //you write your name on user-text box and its put on yourName box
-        //yourName box doesn't have anything on it before name is put
-
-        //Dias, android developers and https://www.youtube.com/watch?v=3Zrwi3FFrC8&t=114s
-        //were helping me on this activity
-    //}
 }

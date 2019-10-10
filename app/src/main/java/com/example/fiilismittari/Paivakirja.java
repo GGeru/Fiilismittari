@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 //this is an activity
 
+//class by Kerttu Kautto, Onika Åberg
 
 
 public class Paivakirja extends AppCompatActivity {
