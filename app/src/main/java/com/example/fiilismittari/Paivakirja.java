@@ -1,8 +1,7 @@
 package com.example.fiilismittari;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -31,7 +30,9 @@ import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
 
-//this is an activity
+/**
+ *
+ */
 
 //class by Kerttu Kautto, Onika Åberg
 
@@ -53,8 +54,8 @@ public class Paivakirja extends AppCompatActivity {
         setContentView(R.layout.activity_paivakirja);
         radioGroup = findViewById(R.id.radioGroup);
         ListView dataView = findViewById(R.id.datapointsView);
-        Calendar calendar = Calendar.getInstance(); //https://www.youtube.com/watch?v=Le47R9H3qow
-        currentDate = calendar.get(calendar.DAY_OF_MONTH) + "/" + calendar.get(calendar.MONTH) + "/" + calendar.get(calendar.YEAR);
+        Calendar calendar = Calendar.getInstance(); // https://www.youtube.com/watch?v=Le47R9H3qow
+        currentDate = calendar.get(calendar.DAY_OF_MONTH) + "/" + calendar.get(calendar.MONTH + 1) + "/" + calendar.get(calendar.YEAR);
 
         Intent paivakirjaIntent = getIntent(); //get the intent that started this activity
         chosenRadioId = paivakirjaIntent.getIntExtra(MainActivity.CHECKED_BUTTON, 0); //the chosen radiobutton id in the main activity
@@ -77,7 +78,7 @@ public class Paivakirja extends AppCompatActivity {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date1 = dayOfMonth + "/ "+ (month+1) +"/ "+ year;
+                String date1 = dayOfMonth + "/"+ (month+1) +"/"+ year;
                 Intent intent = new Intent(Paivakirja.this, date_layout.class) ;
                 intent.putExtra(DATE, date1);
                 Log.d("Fiilismittari", "jee menn''n intenttiin");
