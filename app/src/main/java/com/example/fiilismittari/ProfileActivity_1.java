@@ -23,15 +23,15 @@ public class ProfileActivity_1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_1);
         checkBox = findViewById(R.id.rememberMe);
-        Button aButton = findViewById(R.id.okButton);
-        aName = findViewById(R.id.name);
+//        Button aButton = findViewById(R.id.okButton);
+        aName = findViewById(R.id.user);
         aPreference = PreferenceManager.getDefaultSharedPreferences(this);
         aEditor = aPreference.edit();
 
         checkSharedPreferences();
 
 
-        aButton.setOnClickListener(new View.OnClickListener() {
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkBox.isChecked()){
