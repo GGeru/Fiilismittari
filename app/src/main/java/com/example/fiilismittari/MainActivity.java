@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 /**
- * This is where you choose your current mood from 5 different pictures
+ * This MainActivity is where you choose your current mood from 5 different pictures
  */
 public class MainActivity extends AppCompatActivity {
     public static final String CHECKED_BUTTON = "com.example.fiilismittari.INT";
@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         radiogroup = findViewById(R.id.radioGroup);
+
 
     }
 
