@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
+//creator Onika Åberg
 
 public class ProfileActivity_1 extends AppCompatActivity {
     private CheckBox checkBox;
