@@ -88,7 +88,7 @@ public class Paivakirja extends AppCompatActivity {
     }
 
     public void onTestButtonClick(View v) { //this button takes you to profile activity
-        profileIntent = new Intent(this, ProfileActivity_1.class);
+        profileIntent = new Intent(this, ProfileActivity_2.class);
         startActivity(profileIntent);
     }
 

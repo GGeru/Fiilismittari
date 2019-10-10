@@ -17,7 +17,7 @@ import android.widget.EditText;
 /**
  * Class for saving user profile on the app.
  */
-public class ProfileActivity_1 extends AppCompatActivity {
+public class ProfileActivity_2 extends AppCompatActivity {
     private CheckBox checkBox;
     private SharedPreferences aPreference;
     private SharedPreferences.Editor aEditor;
@@ -26,7 +26,7 @@ public class ProfileActivity_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_1);
+        setContentView(R.layout.activity_profile_2);
         checkBox = findViewById(R.id.rememberMe);
         aName = findViewById(R.id.user);
         aPreference = PreferenceManager.getDefaultSharedPreferences(this);
@@ -38,6 +38,7 @@ public class ProfileActivity_1 extends AppCompatActivity {
          * new OnClickListener is created. when the value of checkBox is true, in other words,
          * checkBox is checked it saves the name
          */
+
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
