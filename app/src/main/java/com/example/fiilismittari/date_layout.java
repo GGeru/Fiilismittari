@@ -36,19 +36,19 @@ public class date_layout extends AppCompatActivity {
         Intent incomingIntent = getIntent();
         date = incomingIntent.getStringExtra(Paivakirja.DATE);
         paiva = findViewById(R.id.paivaView);
-        paiva.setText(GlobalModel.getInstance().getDataPoints().get(50).getDate());
+        paiva.setText(date);
 
-//        sortByDate();
-//
-//        try {
-//            dayData.setAdapter(new ArrayAdapter<String>(
-//                    this,
-//                    android.R.layout.simple_list_item_1,
-//                    dayDataList)
-//            );
-//        } catch (Exception exp) {
-//            Log.d("juu", String.valueOf(exp));
-//        }
+        sortByDate();
+
+        try {
+            dayData.setAdapter(new ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    dayDataList)
+            );
+        } catch (Exception exp) {
+            Log.d("juu", String.valueOf(exp));
+        }
 
 
 
@@ -56,6 +56,7 @@ public class date_layout extends AppCompatActivity {
 
     public void sortByDate() {
         for(int i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {
+            
             if (GlobalModel.getInstance().getDataPoints().get(i).getDate() == date) {
                 dayDataList.add(GlobalModel.getInstance().getDataPoints().get(i).getMood());
             }
