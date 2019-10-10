@@ -32,6 +32,8 @@ import java.util.ArrayList;
 
 //this is an activity
 
+
+
 public class Paivakirja extends AppCompatActivity {
     int chosenRadioId;
     int savedMood;
