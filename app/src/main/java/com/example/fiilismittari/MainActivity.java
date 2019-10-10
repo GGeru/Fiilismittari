@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         radiogroup = findViewById(R.id.radioGroup);
 
+
     }
 
     /**
