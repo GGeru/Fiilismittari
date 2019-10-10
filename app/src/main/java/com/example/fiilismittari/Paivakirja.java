@@ -31,7 +31,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 
 /**
- *
+ * Activity where the moods and corresponding dates are shown in a list.
  */
 
 //class by Kerttu Kautto, Onika Åberg
