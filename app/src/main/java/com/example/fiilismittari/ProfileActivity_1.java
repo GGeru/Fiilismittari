@@ -27,7 +27,10 @@ public class ProfileActivity_1 extends AppCompatActivity {
         aEditor = aPreference.edit();
 
         checkSharedPreferences();
-
+/**
+ * new OnClickListener is created. when the value of checkBox is true, in other words,
+ * checkBox is checked it saves the name
+ */
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +55,10 @@ public class ProfileActivity_1 extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * this method saves the name even when the app is closed and opened again
+     */
     private void checkSharedPreferences(){
         String checkbox = aPreference.getString(getString(R.string.remember_me), "false");
         String name = aPreference.getString(getString(R.string.user), " ");
