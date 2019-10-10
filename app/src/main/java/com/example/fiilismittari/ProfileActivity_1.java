@@ -11,6 +11,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 
+
+// by Onika Åberg
+
+/**
+ * Class for saving user profile on the app.
+ */
 public class ProfileActivity_1 extends AppCompatActivity {
     private CheckBox checkBox;
     private SharedPreferences aPreference;
@@ -27,11 +33,11 @@ public class ProfileActivity_1 extends AppCompatActivity {
         aEditor = aPreference.edit();
 
         checkSharedPreferences();
-/**
- * new OnClickListener is created. when the value of checkBox is true, in other words,
- * checkBox is checked it saves the name
- */
 
+        /**
+         * new OnClickListener is created. when the value of checkBox is true, in other words,
+         * checkBox is checked it saves the name
+         */
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
