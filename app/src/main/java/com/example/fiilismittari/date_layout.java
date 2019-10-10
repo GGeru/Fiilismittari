@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ *  Class that setups the date layout.
+ */
 public class date_layout extends AppCompatActivity {
 
     private TextView p_iv;
