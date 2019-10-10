@@ -45,6 +45,10 @@ class  GlobalModel { //GlobalModel is a Singleton, lesson 6 slide show. we will 
         moodData.add(data);
     }
 
+    /**
+     * Make a list that has only the wanted dates moods.
+     * @return moodInts list that has the moods
+     */
     public ArrayList<String> getMoodInts() {
         moodInts = new ArrayList<>();
         for(int i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {

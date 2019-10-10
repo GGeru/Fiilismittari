@@ -12,17 +12,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Class that sorts dat data, and compiles them to array dateDataList.
+ */
 public class date_layout extends AppCompatActivity {
 
     public TextView paiva;
-    String date;
-    ArrayList dayDataList;
-
-
-//
-////    public date_layout(TextView p_iv) {
-////        this.p_iv = p_iv;
-////    }
+    static String date;
 
 
     @Override
@@ -38,28 +34,28 @@ public class date_layout extends AppCompatActivity {
         paiva = findViewById(R.id.paivaView);
         paiva.setText(date);
 
-        sortByDate();
+//        sortByDate();
 
         try {
             dayData.setAdapter(new ArrayAdapter<String>(
                     this,
                     android.R.layout.simple_list_item_1,
-                    dayDataList)
+                    GlobalModel.getInstance().getMoodInts())
             );
+
         } catch (Exception exp) {
             Log.d("juu", String.valueOf(exp));
         }
 
-
-
     }
 
-    public void sortByDate() {
-        for(int i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {
-            
-            if (GlobalModel.getInstance().getDataPoints().get(i).getDate() == date) {
-                dayDataList.add(GlobalModel.getInstance().getDataPoints().get(i).getMood());
-            }
-        }
-    }
+//    public void sortByDate() {
+//        for(int i = 0; i < GlobalModel.getInstance().getDataPoints().size(); i++) {
+//            Log.d("jiii", date);
+//            Log.d("jii", GlobalModel.getInstance().getDataPoints().get(i).getDate());
+//            if (GlobalModel.getInstance().getDataPoints().get(i).getDate().equals(date)) {
+//                dayDataList.add(GlobalModel.getInstance().getDataPoints().get(i).getMood());
+//            }
+//        }
+//    }
 }

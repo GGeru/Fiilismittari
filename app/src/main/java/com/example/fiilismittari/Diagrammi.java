@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+/**
+ * Unused, undeleted for fear of breaking  something in the manifest :D
+ */
 public class Diagrammi extends AppCompatActivity {
 
     @Override
