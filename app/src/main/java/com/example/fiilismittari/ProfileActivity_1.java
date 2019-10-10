@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-/**
- * Class for saving profile on the app
- */
+
 public class ProfileActivity_1 extends AppCompatActivity {
     private CheckBox checkBox;
     private SharedPreferences aPreference;
